@@ -1,0 +1,226 @@
+<!-- <div class="container my-5" *ngIf="crop">
+  <div class="card shadow-lg border border-success position-relative">
+
+    Booking Modal
+    <div class="overlay" *ngIf="isBooking">
+      <div class="booking-form card shadow">
+        <div class="card-body text-center">
+          <h5><i class="fas fa-cart-plus text-success me-2"></i>Confirm Booking</h5>
+          <p>Enter quantity you want to book (Kg)</p>
+          <input type="number" class="form-control mb-3 w-50 mx-auto" [(ngModel)]="reqQuantity" min="1" max="{{ crop.quantity_available }}">
+          <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-success btn-sm" (click)="confirmBooking()">Confirm</button>
+            <button class="btn btn-outline-secondary btn-sm" (click)="isBooking = false">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    Header
+    <div class="card-header bg-success text-white text-center">
+      <h3 class="mb-0 fs-4">
+        <i class="fas fa-leaf me-2"></i>{{ crop.crop_name }}
+        <small class="fs-2 d-block">({{ crop.crop_type }})</small>
+      </h3>
+    </div>
+
+    Body
+    <div class="card-body">
+
+      Status
+      <div class="text-center mb-3">
+        <span class="badge fs-3 px-3 py-2"
+              [ngClass]="{
+                'bg-success': crop.status === 'Available',
+                'bg-secondary': crop.status === 'Sold',
+                'bg-warning text-dark': !crop.status
+              }">
+          <i class="fas fa-info-circle me-1"></i>{{ crop.status || 'Not specified' }}
+        </span>
+      </div>
+
+      Crop Info
+      <div class="row text-center mb-4">
+        <div class=" col-md-4 "><i class="fas fa-boxes text-success me-1"></i><strong>Total:</strong> {{ crop.quantity_in_kg }} kg</div>
+        <div class="col-md-4"><i class="fas fa-truck-loading text-success me-1"></i><strong>Available:</strong> {{ crop.quantity_available }} kg</div>
+        <div class="col-md-4"><i class="fas fa-clipboard-check text-success me-1"></i><strong>Booked:</strong> {{ crop.quantity_booked }} kg</div>
+      </div>
+
+      Market Info
+      <div class="row text-center mb-3">
+        <div class="col-md-6"><i class="fas fa-rupee-sign text-success me-1"></i><strong>Price:</strong> ₹{{ crop.price_per_kg }}/Kg</div>
+        <div class="col-md-6"><i class="fas fa-calendar-alt text-success me-1"></i><strong>Posted:</strong> {{ crop.postedAt | date:'mediumDate' }}</div>
+      </div>
+
+      Messages
+      <div *ngIf="successMessage" class="alert alert-success text-center">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+
+      Action Buttons
+      <div class="d-flex justify-content-start gap-3 mt-4">
+        <button *ngIf="crop.status !== 'Sold'" class="btn btn-outline-primary" (click)="openBooking()">
+          <i class="fas fa-shopping-cart me-1"></i>Book Crop
+        </button>
+        <a routerLink="/all-crops" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Back</a>
+      </div>
+
+  
+    </div>
+  </div>
+</div> -->
+
+<!-- <div class="container my-5" *ngIf="crop">
+  <div class="card shadow-lg border border-success position-relative">
+
+    Booking Modal
+    <div class="overlay" *ngIf="isBooking">
+      <div class="booking-form card shadow">
+        <div class="card-body text-center">
+          <h5><i class="fas fa-cart-plus text-success me-2"></i>Confirm Booking</h5>
+          <p>Enter quantity you want to book (Kg)</p>
+          <input type="number" class="form-control mb-3 w-50 mx-auto" [(ngModel)]="reqQuantity" min="1" max="{{ crop.quantity_available }}">
+          <div class="d-flex justify-content-center gap-3">
+            <button class="btn btn-success btn-sm" (click)="confirmBooking()">Confirm</button>
+            <button class="btn btn-outline-secondary btn-sm" (click)="isBooking = false">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    Header
+    <div class="card-header bg-success text-white text-center">
+      <h2 class="mb-0 fs-2">
+        <i class="fas fa-leaf me-2"></i>{{ crop.crop_name }}
+        <small class="fs-5 ms-2">({{ crop.crop_type }})</small>
+      </h2>
+    </div>
+
+    Body
+    <div class="card-body">
+
+      Two Column Layout
+      <div class="row text-center mb-4">
+        Left Column
+        <div class="col-md-6 border-end fs-4">
+          <div class="mb-3">
+            <span class="badge px-3 py-2"
+              [ngClass]="{
+                'bg-success': crop.status === 'Available',
+                'bg-secondary': crop.status === 'Sold',
+                'bg-warning text-dark': !crop.status
+              }">
+              <i class="fas fa-info-circle me-1"></i>{{ crop.status || 'Not specified' }}
+            </span>
+          </div>
+          <div><i class="fas fa-boxes text-success me-1"></i><strong>Total:</strong> {{ crop.quantity_in_kg }} kg</div>
+          <div><i class="fas fa-truck-loading text-success me-1"></i><strong>Available:</strong> {{ crop.quantity_available }} kg</div>
+        </div>
+
+        Right Column
+        <div class="col-md-6 fs-4">
+          <div class="mb-3"><i class="fas fa-clipboard-check text-success me-1"></i><strong>Booked:</strong> {{ crop.quantity_booked }} kg</div>
+          <div class="mb-2"><i class="fas fa-rupee-sign text-success me-1"></i><strong>Price:</strong> ₹{{ crop.price_per_kg }}/Kg</div>
+          <div><i class="fas fa-calendar-alt text-success me-1"></i><strong>Posted:</strong> {{ crop.postedAt | date:'mediumDate' }}</div>
+        </div>
+      </div>
+
+      Messages
+      <div *ngIf="successMessage" class="alert alert-success text-center">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+
+      Action Buttons
+      <div class="d-flex justify-content-center gap-3 mt-4">
+        <button *ngIf="crop.status !== 'Sold'" class="btn btn-outline-primary" (click)="openBooking()">
+          <i class="fas fa-shopping-cart me-1"></i>Book Crop
+        </button>
+        <a routerLink="/all-crops" class="btn btn-secondary"><i class="fas fa-arrow-left me-1"></i>Back</a>
+      </div>
+
+    </div>
+  </div>
+</div> -->
+
+<div class="container my-5" *ngIf="crop">
+  <div class="card shadow-lg ">
+    <div class="row g-0">
+
+      <!-- Left: Crop Image -->
+      <div class="col-md-5">
+        <img [src]="crop.imageUrl || 'assets/crop.jpg'" class="img-fluid h-100 object-fit-cover rounded-start" alt="Crop Image">
+      </div>
+
+      <!-- Right: Crop Details -->
+      <div class="col-md-7 p-4 position-relative">
+        <!-- Booking Popup -->
+        <div class="overlay" *ngIf="isBooking">
+          <div class="booking-form card shadow border">
+            <div class="card-body text-center">
+              <h5><i class="fas fa-cart-plus text-success me-2"></i>Confirm Booking</h5>
+              <p>Enter quantity you want to book (Kg)</p>
+              <input type="number" class="form-control mb-3 w-50 mx-auto"
+                     [(ngModel)]="reqQuantity" min="1" [max]="crop.quantity_available">
+              <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-success btn-sm" (click)="confirmBooking()">Confirm</button>
+                <button class="btn btn-outline-secondary btn-sm" (click)="isBooking = false">Cancel</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Crop Title -->
+        <h3 class="fw-bold text-success fs-1">
+          {{ crop.crop_name }} <small class="text-muted fs-4">({{ crop.crop_type }})</small>
+        </h3>
+
+        <!-- Crop Status -->
+        <div class="mb-3">
+          <span class="badge fs-6 px-3 py-2"
+                [ngClass]="{
+                  'bg-success': crop.status === 'Available',
+                  'bg-secondary': crop.status === 'Sold',
+                  'bg-warning text-dark': !crop.status
+                }">
+            {{ crop.status || 'Not specified' }}
+          </span>
+        </div>
+
+        <!-- Details Grid -->
+        <div class="row mb-3 fs-6">
+          <div class="col-sm-6 mb-2"><i class="fas fa-box text-success me-2"></i><strong>Total:</strong> {{ crop.quantity_in_kg }} Kg</div>
+          <div class="col-sm-6 mb-2"><i class="fas fa-box-open text-success me-2"></i><strong>Available:</strong> {{ crop.quantity_available }} Kg</div>
+          <div class="col-sm-6 mb-2"><i class="fas fa-dolly text-success me-2"></i><strong>Booked:</strong> {{ crop.quantity_booked }} Kg</div>
+          <div class="col-sm-6 mb-2"><i class="fas fa-rupee-sign text-success me-2"></i><strong>Price:</strong> ₹{{ crop.price_per_kg }}/Kg</div>
+          <div class="col-sm-6 mb-2"><i class="fas fa-calendar-day text-success me-2"></i><strong>Posted On:</strong> {{ crop.postedAt | date:'mediumDate' }}</div>
+          <!-- <div class="col-sm-6 mb-2"><i class="fas fa-user text-success me-2"></i><strong>Farmer ID:</strong> {{ crop.farmer_id }}</div> -->
+        </div>
+        
+        <!-- farmer details -->
+        <h3  class="fw-bold text-success fs-2">Published By : </h3>
+        <div *ngIf="farmer" class="row mb-3 fs-6">
+           <div class="col-sm-6 mb-2"><i class="fas fa-user text-success me-2"></i><strong>Farmer Name:</strong>{{farmer.first_name}} {{farmer.last_name}}</div>
+           <div class="col-sm-6 mb-2"><i class="fas fa-map-marker-alt text-success me-2"></i><strong>Farmer Address:</strong>{{farmer.address}} {{ farmer.district }} {{farmer.pincode}}</div>
+           <div class="col-sm-6 mb-2"><i class="fas fa-map-marker-alt text-success me-2"></i><strong>Farmer Phone No.:</strong>{{farmer.phone_no }}</div>
+         </div>
+         <ng-container *ngIf="!farmer">
+          <h5  class=" text-dark">No Farmer Details Found </h5>
+         </ng-container>
+
+        <!-- Messages -->
+        <div *ngIf="successMessage" class="alert alert-success text-center">{{ successMessage }}</div>
+        <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+
+        <!-- Actions -->
+        <div class="d-flex justify-content-start gap-3 mt-3">
+          <button *ngIf="crop.status !== 'Sold'" class="btn btn-outline-primary" (click)="openBooking()">
+            <i class="fas fa-shopping-cart me-1"></i> Book Crop
+          </button>
+          <a routerLink="/all-crops" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Back
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-crop-reviews [cropId]="crop.crop_id"></app-crop-reviews>
+</div>

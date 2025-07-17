@@ -1,0 +1,36 @@
+input.ng-invalid.ng-touched,
+input.ng-invalid.ng-dirty {
+  border: 1px solid red;
+}
+
+.custom-form-bg {
+  background-color: #F0FFF0; /* very light green */
+}
+
+.text-primary-heading {
+  color: #008000; /* deep green */
+}
+
+.custom-input {
+  background-color: #f5fff5;
+  border: 1px solid #B0C4DE;
+  border-radius: 0.375rem;
+  color: #2F4F4F;
+}
+
+.custom-input:focus {
+  border-color: #008000;
+  box-shadow: 0 0 0 0.2rem rgba(0, 128, 0, 0.2);
+}
+
+.btn-accent {
+  background-color: #008000;
+  color: white;
+  font-weight: 600;
+  transition: background-color 0.3s ease-in-out;
+  border: none;
+}
+
+.btn-accent:hover {
+  background-color: rgba(0, 128, 0, 0.85);
+}

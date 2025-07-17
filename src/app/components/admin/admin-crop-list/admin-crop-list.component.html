@@ -1,0 +1,39 @@
+<h1 class="heading">Crops</h1>
+<div class="overflow-auto" style="max-height: 90vh;">
+    <table class="table table-bordered table-hover overflow-scroll "style="max-height: 100vh;">
+  <thead class="table-success">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Price (₹/kg)</th>
+      <th>Available (kg)</th>
+      <th>Status</th>
+      <th>Posted At</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let crop of crops; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ crop.crop_name }}</td>
+      <td>{{ crop.crop_type }}</td>
+      <td>{{ crop.price_per_kg }}</td>
+      <td>{{ crop.quantity_available }}</td>
+      <td>
+        <span [ngClass]="{
+          'badge bg-success text-white': crop.status === 'Available',
+          'badge bg-secondary text-white': crop.status !== 'Available'
+        }">{{ crop.status }}</span>
+      </td>
+      <td>{{ crop.postedAt | date: 'medium' }}</td>
+      <td>
+        <button class="btn btn-outline-danger btn-sm" (click)="deleteCrop(crop.crop_id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+</div>

@@ -1,0 +1,109 @@
+<div class="container my-5 vh-100">
+  <h2 class="text-success mb-4 text-center">
+    <i class="fas fa-clipboard-list me-2"></i>My Bookings
+  </h2>
+
+  <div *ngIf="bookings.length === 0" class="alert alert-warning text-center">
+    No crops booked yet.
+  </div>
+
+  <div class="table-responsive" *ngIf="bookings.length > 0">
+    <table class="table table-bordered table-hover text-center">
+      <thead class="table-success">
+        <tr>
+          <th>#</th>
+          <th>Crop</th>
+          <th>Type</th>
+          <th>Quantity Booked</th>
+          <th>Amount</th>
+          <th>Payment</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let booking of bookings; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ getCropName(booking.cropId) }}</td>
+          <td>{{ getCropType(booking.cropId) }}</td>
+          <td>{{ booking.quantityBooked }} kg</td>
+          <td>₹{{ booking.amount }}</td>
+          <td >
+            <ng-container *ngIf="getPaymentStatus(booking); else makePaymentBtn">
+              <span class="badge bg-success">Paid</span>
+            </ng-container>
+            <ng-template #makePaymentBtn>
+              <button
+                class="btn btn-outline-primary btn-sm"
+                (click)="openPaymentForm(booking)"
+              >
+                <i class="fas fa-credit-card"></i> Make Payment
+              </button>
+            </ng-template>
+          </td>
+          <td>
+            <span class="badge bg-primary">{{ booking.status }}</span>
+          </td>
+          <td>{{ booking.date | date : "mediumDate" }}</td>
+          <td>
+            <ng-container *ngIf="getPaymentStatus(booking) ; else actionButton">No Action</ng-container>
+            <ng-template #actionButton>
+              <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="openCancelForm(booking)"
+            >
+              <i class="fas fa-times-circle"></i> Cancel
+            </button>
+            </ng-template>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cancel Form Popup -->
+  <div *ngIf="showCancelForm" class="cancel-overlay">
+    <div class="cancel-form card shadow p-4">
+      <h5 class="text-danger mb-3">Cancel Booking</h5>
+      <p class="mb-2">
+        Crop: <strong>{{ getCropName(selectedBooking?.cropId) }}</strong>
+      </p>
+      <div class="mb-3">
+        <label for="quantity" class="form-label">Quantity to Cancel (kg)</label>
+        <input
+          type="number"
+          id="quantity"
+          class="form-control"
+          [(ngModel)]="cancelQuantity"
+          [max]="selectedBooking?.quantityBooked"
+          min="1"
+        />
+      </div>
+      <div class="d-flex justify-content-end gap-2">
+        <button
+          class="btn btn-outline-secondary"
+          (click)="showCancelForm = false"
+        >
+          Close
+        </button>
+        <button class="btn btn-danger" (click)="confirmCancel()">
+          Confirm Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="showPaymentForm" class="cancel-overlay">
+  <div class="cancel-form card shadow p-4">
+    <h5 class="text-primary mb-3">Make Payment</h5>
+    <p>Crop: <strong>{{ getCropName(selectedPayment?.cropId) }}</strong></p>
+    <p>Amount to Pay: <strong>₹{{ selectedPayment?.amount }}</strong></p>
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-outline-secondary" (click)="showPaymentForm = false">Cancel</button>
+      <button class="btn btn-primary" (click)="confirmPayment()">Pay</button>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,77 @@
+<h1 class="heading">Farmers</h1>
+<table class="table table-bordered table-hover">
+  <thead class="table-success">
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Address</th>
+      <th>PIN code</th>
+      <th>Phone No</th>
+      <th>Bank Name</th>
+      <th>IFSC Code</th>
+      <th>UPI Number</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let farmer of farmers; let i = index">
+      <td>{{ i+1 }}</td>
+      <td>{{ farmer.first_name }} {{ farmer.last_name }}</td>
+      <td>{{ farmer.email }}</td>
+      <td>{{farmer.address}}</td>
+      <td>{{farmer.pincode}}</td>
+      <td>{{farmer.phone_no}}</td>
+      <!-- <td>{{farmer.bankDetails.bankName}}</td>
+      <td>{{farmer.bankDetails.ifscCode}}</td>
+      <td>{{farmer.bankDetails.upiNo}}</td> -->
+      <td>{{farmer.bankDetails ? farmer.bankDetails.bankName : 'No details' }}</td>
+       <td>{{farmer.bankDetails ? farmer.bankDetails.ifscCode : 'No details'}}</td>
+       <td>{{farmer.bankDetails ? farmer.bankDetails.upiNo : 'No details'}}</td>
+      <td>
+        <span [ngClass]="{
+          'badge bg-success': farmer.status === 'active',
+          'badge bg-secondary': farmer.status !== 'active'
+        }">{{ farmer.status }}</span>
+      </td>
+      <td class="w-50">
+        <button class="btn btn-outline-primary btn-sm" (click)="openEditModal(farmer)">Edit</button>
+        <button class="btn btn-outline-danger btn-sm ms-2" (click)="deleteFarmer(farmer.farmer_id)">Delete</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Edit Modal -->
+<div *ngIf="showEditModal" class="modal-overlay">
+  <div class="modal-content card shadow p-4">
+    <h5 class="text-primary-heading mb-3">Edit Farmer</h5>
+    <form [formGroup]="editForm">
+      <div class="mb-3">
+        <label class="form-label">First Name</label>
+        <input class="form-control" formControlName="first_name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Last Name</label>
+        <input class="form-control" formControlName="last_name">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input class="form-control" formControlName="email">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select class="form-select" formControlName="status">
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
+      </div>
+    </form>
+    <div class="d-flex justify-content-end gap-2">
+      <button class="btn btn-outline-secondary" (click)="closeModal()">Close</button>
+      <button class="btn btn-accent" (click)="updateFarmer()">Save Changes</button>
+    </div>
+  </div>
+</div>
+

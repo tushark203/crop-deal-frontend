@@ -1,0 +1,56 @@
+<div class="card shadow-lg mt-5">
+  <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+    <h4 class="mb-0"><i class="fas fa-comments me-2"></i> Reviews</h4>
+    <span *ngIf="averageRating" class="badge bg-light text-dark fs-6">
+      <i class="fas fa-star text-warning me-1"></i>{{ averageRating.toFixed(1) }}/5
+    </span>
+  </div>
+
+  <div class="card-body">
+    <!-- Review Form -->
+    <div class="mb-4">
+      <h6><i class="fas fa-plus-circle text-success me-2"></i>Add Your Review</h6>
+      <div class="row g-2 align-items-center">
+        <div class="col-md-8">
+          <textarea class="form-control" [(ngModel)]="reviewComment" placeholder="Write your comment here..."></textarea>
+        </div>
+        <div class="col-md-2">
+          <select class="form-select" [(ngModel)]="reviewRating">
+            <option disabled selected>Rating</option>
+            <option *ngFor="let r of [1,2,3,4,5]" [value]="r">{{ r }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-outline-success w-100" (click)="submitReview()">
+            <i class="fas fa-paper-plane me-1"></i> Submit
+          </button>
+        </div>
+      </div>
+      <div *ngIf="reviewError" class="text-danger mt-2">{{ reviewError }}</div>
+    </div>
+
+    <!-- Reviews -->
+    <div *ngIf="reviews.length > 0; else noReviews">
+      <div class="border-top pt-3" *ngFor="let review of reviews">
+        <div class="d-flex justify-content-between align-items-center">
+          <!-- <strong>Dealer ID: {{ review.dealerId }}</strong> -->
+           <!-- <strong>Dealer Name : {{getDelaerName(review.dealerId)}}</strong> -->
+           <strong>Dealer Name: {{ dealerNameMap[review.dealerId] || 'Loading...' }}</strong>
+
+          <span class="text-muted small">{{ review.reviewAt | date: 'short' }}</span>
+        </div>
+        <div class="text-warning my-1">
+          <ng-container *ngFor="let s of [].constructor(review.rating)">
+            <i class="fas fa-star"></i>
+          </ng-container>
+        </div>
+        <p class="mb-3">{{ review.comment }}</p>
+        <hr />
+      </div>
+    </div>
+    <ng-template #noReviews>
+      <p class="text-muted text-center">No reviews yet.</p>
+    </ng-template>
+  </div>
+</div>
+

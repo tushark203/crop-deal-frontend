@@ -1,0 +1,124 @@
+<!-- <div class="container mt-5">
+  <h2 class="text-success mb-4 text-center">🌾 My Published Crops</h2>
+
+  <div *ngIf="myCrops.length === 0" class="alert alert-warning text-center">
+    You haven't published any crops yet.
+  </div>
+
+  <div *ngIf="myCrops.length > 0" class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+      <thead class="table-success">
+        <tr>
+          <th>#</th>
+          <th>Crop Name</th>
+          <th>Type</th>
+          <th>Quantity (Kg)</th>
+          <th>Available (Kg)</th>
+          <th>Price (₹/Kg)</th>
+          <th>Status</th>
+          <th>Posted On</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let crop of myCrops; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ crop.crop_name }}</td>
+          <td>{{ crop.crop_type }}</td>
+          <td>{{ crop.quantity_in_kg }}</td>
+          <td>{{ crop.quantity_available }}</td>
+          <td>₹{{ crop.price_per_kg }}</td>
+          <td>{{ crop.status || 'Not Booked' }}</td>
+          <td>{{ crop.postedAt | date: 'mediumDate' }}</td>
+          <td>
+            <a [routerLink]="['/farmer/edit-crop', crop.crop_id]" class="btn btn-sm btn-outline-primary me-2">✏️ Edit</a>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteCrop(crop.crop_id)">🗑️ Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+ -->
+<div class="container mt-5" [class.blurred]="editingCrop">
+  <h2 class="text-success mb-4 text-center">My Published Crops</h2>
+
+  <div *ngIf="myCrops.length === 0" class="alert alert-warning text-center">
+    You haven't published any crops yet.
+  </div>
+
+  <div *ngIf="myCrops.length > 0" class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+      <thead class="table-success">
+        <tr>
+          <th>#</th>
+          <th>Crop Name</th>
+          <th>Type</th>
+          <th>Quantity (Kg)</th>
+          <th>Available (Kg)</th>
+          <th>Price (₹/Kg)</th>
+          <th>Status</th>
+          <th>Posted On</th>
+          <th>Actions</th>
+         
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let crop of myCrops; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ crop.crop_name }}</td>
+          <td>{{ crop.crop_type }}</td>
+          <td>{{ crop.quantity_in_kg }}</td>
+          <td>{{ crop.quantity_available }}</td>
+          <td>₹{{ crop.price_per_kg }}</td>
+          <td>{{ crop.status || 'Not Booked' }}</td>
+          <td>{{ crop.postedAt | date: 'mediumDate' }}</td>
+         
+          <td>
+            <button class="btn btn-sm btn-outline-primary me-2" (click)="openEditForm(crop)"><i class="fas fa-edit"></i> Edit</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteCrop(crop.crop_id)"><i class="fas fa-trash"></i> Delete</button>
+            <!-- <button class="btn btn-sm btn-outline-primary me-2" (click)="openEditForm(crop)">✏️ Edit</button>
+            <button class="btn btn-sm btn-outline-danger" (click)="deleteCrop(crop.crop_id)">🗑️ Delete</button> -->
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Edit Form Modal -->
+<div class="edit-modal" *ngIf="editingCrop">
+  <div class="modal-content p-4 rounded shadow">
+    <h4 class="text-center mb-3 text-success"> Edit Crop</h4>
+
+    <form #editForm="ngForm">
+      <div class="mb-3">
+        <label for="crop_name" class="form-label">Crop Name</label>
+        <input id="crop_name" name="crop_name" class="form-control" [(ngModel)]="editingCrop.crop_name">
+      </div>
+
+      <div class="mb-3">
+        <label for="crop_type" class="form-label">Crop Type</label>
+        <input id="crop_type" name="crop_type" class="form-control" [(ngModel)]="editingCrop.crop_type">
+      </div>
+
+      <div class="mb-3">
+        <label for="quantity_in_kg" class="form-label">Quantity (Kg)</label>
+        <input id="quantity_in_kg" name="quantity_in_kg" type="number" class="form-control" [(ngModel)]="editingCrop.quantity_in_kg">
+      </div>
+
+      <div class="mb-3">
+        <label for="price_per_kg" class="form-label">Price (₹/Kg)</label>
+        <input id="price_per_kg" name="price_per_kg" type="number" class="form-control" [(ngModel)]="editingCrop.price_per_kg">
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <!-- <button type="button" class="btn btn-secondary" >Cancel</button> -->
+        <!-- <button type="button" class="btn btn-success" >✅ Confirm Update</button> -->
+        <button type="button" class="btn btn-secondary" (click)="cancelEdit()">Cancel</button>
+        <button type="button" class="btn btn-success" (click)="confirmUpdate()">Confirm Update</button>
+      </div>
+    </form>
+  </div>
+</div>

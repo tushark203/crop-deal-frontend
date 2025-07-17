@@ -1,0 +1,60 @@
+<div class="container my-5">
+  <h2 class="text-success mb-4 text-center">
+    <i class="fas fa-money-check-alt me-2"></i> My Payments
+  </h2>
+
+  <div *ngIf="payments().length === 0" class="alert alert-warning text-center">
+    No payments made yet.
+  </div>
+
+  <div class="table-responsive" *ngIf="payments().length > 0">
+    <table class="table table-bordered table-hover text-center align-middle">
+      <thead class="table-success">
+        <tr>
+          <th>No.</th>
+          <th>Crop Name</th>
+          <th>Farmer Name</th>
+          <th>Quantity</th>
+          <th>Amount</th>
+          <th>Date</th>
+          <th>Receipt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let payment of payments(); let i = index">
+          <!-- <td>{{ i + 1 }}</td>
+          <td>{{ getCropName(payment.paymetId) }}</td>
+          <td>{{ getFarmerName(payment.paymetId) }}</td>
+          <td>{{ getQuantity(payment.paymetId) }}</td>
+          <td>₹{{ payment.amount }}</td>
+          <td>{{ getDate(payment.paymetId) | date : "mediumDate" }}</td>
+          <td>
+            <button class="btn btn-outline-primary btn-sm" (click)="getReceipt(payment.paymetId)">
+              <i class="fas fa-receipt me-1"></i> Get Receipt
+            </button>
+          </td> -->
+          <td>{{ i + 1 }}</td>
+          <td>
+            {{ getReceiptData(payment.paymetId)?.cropName || "Loading..." }}
+          </td>
+          <td>
+            {{ getReceiptData(payment.paymetId)?.farmerName || "Loading..." }}
+          </td>
+          <td>{{ getReceiptData(payment.paymetId)?.quantity || "..." }} Kg</td>
+          <td>{{ payment.amount }}</td>
+          <td>
+            {{ getReceiptData(payment.paymetId)?.paidAt | date : "mediumDate" }}
+          </td>
+          <td>
+            <button
+              class="btn btn-outline-primary btn-sm"
+              (click)="downloadReceipt(payment.paymetId)"
+            >
+              <i class="fas fa-receipt me-1"></i> Get Receipt
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

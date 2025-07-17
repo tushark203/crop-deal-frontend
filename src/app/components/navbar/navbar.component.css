@@ -1,0 +1,30 @@
+
+nav{
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.custom-navbar {
+  /* background: linear-gradient(135deg, #87CEEB, #6B8E23); */
+  /* background: linear-gradient(135deg,#87CEEB,#6B8E23 ); */
+  background: linear-gradient(135deg,#87ceeb,#008000 );
+
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.navbar-brand {
+  font-size: 1.6rem;
+}
+
+.nav-link:hover {
+  color: #d4fcd4 !important;
+}
+
+.nav-link.active {
+  font-weight: bold;
+  color: #ffffff !important;
+}
+
+.csr{
+  cursor: pointer;
+}
+

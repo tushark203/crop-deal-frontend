@@ -1,0 +1,72 @@
+
+<div class="container mt-5">
+  <h2 class="text-success mb-4 text-center"><i class="fas fa-university"></i> Bank Details</h2>
+
+  <!-- Show if details already exist -->
+  <div *ngIf="bankDetails && !showForm" class="table-responsive">
+    <table class="table table-bordered table-hover align-middle text-center">
+      <thead class="table-success">
+        <tr>
+          <th>Bank Name</th>
+          <th>Account Number</th>
+          <th>IFSC</th>
+          <th>UPI ID</th>
+          <th>UPI Number</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ bankDetails.bankName }}</td>
+          <td>{{ bankDetails.accountNumber }}</td>
+          <td>{{ bankDetails.ifscCode }}</td>
+          <td>{{ bankDetails.upiId }}</td>
+          <td>{{ bankDetails.upiNumber }}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary" (click)="openForm()"><i class="fas fa-edit"></i> Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Show Add Button if no bank details -->
+  <div *ngIf="!bankDetails && !showForm" class="text-center">
+    <button class="btn btn-outline-success" (click)="openForm()"><i class="fas fa-plus"></i> Add Bank Details</button>
+  </div>
+
+  <!-- Form Modal -->
+  <div *ngIf="showForm" class="edit-modal">
+    <div class="modal-content p-4 rounded shadow bg-white">
+      <h5 class="mb-3 text-success">{{ isEditMode ? 'Edit' : 'Add' }} Bank Details</h5>
+
+      <form [formGroup]="bankForm">
+        <div class="mb-3">
+          <label for="bankName" class="form-label">Bank Name</label>
+          <input formControlName="bankName" id="bankName" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="accountNumber" class="form-label">Account Number</label>
+          <input formControlName="accountNumber" id="accountNumber" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="ifscCode" class="form-label">IFSC Code</label>
+          <input formControlName="ifscCode" id="ifscCode" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="upiId" class="form-label">UPI ID</label>
+          <input formControlName="upiId" id="upiId" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label for="upiNumber" class="form-label">UPI Number</label>
+          <input formControlName="upiNumber" id="upiNumber" class="form-control" />
+        </div>
+
+        <div class="d-flex justify-content-between">
+          <button class="btn btn-secondary" (click)="cancel()" type="button">Cancel</button>
+          <button class="btn btn-success" (click)="submit()" type="button"> {{ isEditMode ? 'Update' : 'Add' }}</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

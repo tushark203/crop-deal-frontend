@@ -1,0 +1,57 @@
+
+
+<div class="container-fluid d-flex justify-content-center align-items-center min-vh-100 bg-light-blue">
+  <div class="card p-4 shadow login-card">
+    <div class="card-body text-center">
+      <h2 class="fw-bold mb-4 text-primary-heading">Welcome Back to Crop Deal</h2>
+
+      <form #loginForm="ngForm" class="login-form" novalidate>
+        <!-- Email -->
+        <div class="mb-3 text-start">
+          <label for="email" class="form-label text-muted">Email address</label>
+          <input 
+            type="email"
+            class="form-control custom-input"
+            id="email"
+            name="email"
+            required
+            email
+            [(ngModel)]="userObj.email"
+            #emailRef="ngModel"
+            placeholder="Enter your email"
+          >
+          <div class="text-danger mt-1" *ngIf="emailRef.invalid && (emailRef.dirty || emailRef.touched)">
+            <small *ngIf="emailRef.errors?.['required']">Email is required.</small>
+            <small *ngIf="emailRef.errors?.['email']">Invalid email format.</small>
+          </div>
+        </div>
+
+        <!-- Password -->
+        <div class="mb-3 text-start">
+          <label for="password" class="form-label text-muted">Password</label>
+          <input 
+            type="password"
+            class="form-control custom-input"
+            id="password"
+            name="password"
+            [(ngModel)]="userObj.password"
+            #passwordRef="ngModel"
+            placeholder="Enter your password"
+          >
+        </div>
+
+        <!-- Login Button -->
+        <button type="button" class="btn btn-accent w-100" (click)="onLogin()">Login</button>
+      </form>
+
+      <!-- Register Prompt -->
+      <div class="mt-4">
+        <p class="text-secondary">Don't have an account?</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+          <a routerLink="/register/farmer" class="btn btn-outline-accent btn-sm">Register as Farmer</a>
+          <a routerLink="/register/dealer" class="btn btn-outline-accent btn-sm">Register as Dealer</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

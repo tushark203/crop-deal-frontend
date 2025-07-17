@@ -1,0 +1,49 @@
+<!-- Sidebar + Dashboard -->
+<div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar -->
+    <nav class="col-md-2 p-3 vh-100 sidebar">
+      <h4 class="text-primary-heading  mb-4">Admin Dashboard</h4>
+      <ul class="nav flex-column ul-list">
+        <li class="nav-item mb-2"><a class="nav-link text-white fw-semibold" (click)="showSection('farmers')">Farmers</a></li>
+        <li class="nav-item mb-2"><a class="nav-link text-white fw-semibold" (click)="showSection('dealers')"> Dealers</a></li>
+        <li class="nav-item mb-2"><a class="nav-link text-white fw-semibold" (click)="showSection('crops')"> Crops</a></li>
+        <!-- <li class="nav-item"><a class="nav-link text-white fw-semibold" (click)="showSection('reviews')">Reviews</a></li> -->
+      </ul>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="col-md-9 p-4">
+      <div *ngIf="section === 'dashboard'">
+        <div class="row text-center mb-4">
+          <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+              <h5>Total Farmers</h5>
+              <p class="fs-4 fw-bold text-primary-heading">{{ farmerCount }}</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+              <h5>Total Dealers</h5>
+              <p class="fs-4 fw-bold text-primary-heading">{{ dealerCount }}</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+              <h5>Total Crops Published</h5>
+              <p class="fs-4 fw-bold text-primary-heading">{{ cropCount }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dynamic Sections (see below for table components) -->
+        <app-admin-farmer-list *ngIf="section === 'farmers'"></app-admin-farmer-list>
+      <app-admin-dealer-list *ngIf="section === 'dealers'"></app-admin-dealer-list>
+      <app-admin-crop-list *ngIf="section === 'crops'"></app-admin-crop-list>
+      <app-admin-reviews *ngIf="section === 'reviews'"></app-admin-reviews>
+     
+    </main>
+  </div>
+</div>
+
